@@ -928,6 +928,11 @@
   <div class="main-container">
     <div id="hello" class="hello-text">CERROS DE CAMACHO 980<br><span style="font-size: 0.4em; letter-spacing: 2px;">THIRD CONTACT INITIATED</span></div>
     
+    <div id="signal-prompt" class="signal-prompt" style="display: none;">
+      <div class="signal-text">SIGNAL DETECTED</div>
+      <button id="connect-button" class="connect-button">Connect to Transmission</button>
+    </div>
+    
     <div id="status" class="status">
       Move to center zone
     </div>
@@ -958,9 +963,15 @@
           this.signalConnected = true;
           this.setupOrientationDetection();
         } else {
-          // Mobile: show signal prompt initially, hide message
+          // Mobile: show signal prompt first, hide message and status
           if (this.helloElement) {
             this.helloElement.style.opacity = '0';
+          }
+          if (this.statusElement) {
+            this.statusElement.style.display = 'none';
+          }
+          if (this.signalPrompt) {
+            this.signalPrompt.style.display = 'block';
           }
           this.setupSignalConnection();
         }
@@ -984,10 +995,11 @@
               if (this.signalPrompt) {
                 this.signalPrompt.style.display = 'none';
               }
-              this.signalConnected = true;
               if (this.statusElement) {
+                this.statusElement.style.display = 'block';
                 this.statusElement.innerHTML = 'Signal connected. Calibrating...';
               }
+              this.signalConnected = true;
               this.setupOrientationDetection();
             }, 1000);
           });
