@@ -1,49 +1,559 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+// Clean orientation detector with ultrasound corruption effects
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Detector</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: #000000;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    .main-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .hello-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8rem;
+      font-weight: bold;
+      color: white;
+      z-index: 20;
+      letter-spacing: 4px;
+    }
+
+    /* Ultrasound corruption effect - UNBEARABLE */
+    .hello-text.glitch {
+      animation: 
+        ultrasound-corruption 0.015s infinite,
+        chaotic-shake 0.008s infinite,
+        text-dissolve 0.025s infinite;
+    }
+
+    @keyframes ultrasound-corruption {
+      0% { 
+        transform: translate(-50%, -50%);
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        filter: none;
+      }
+      2% { 
+        transform: translate(-50%, -50%) translate(15px, 0) scaleX(0.8) scaleY(1.1);
+        clip-path: polygon(0% 8%, 95% 2%, 100% 18%, 5% 22%);
+        filter: blur(1px) contrast(200%);
+      }
+      4% { 
+        transform: translate(-50%, -50%) translate(-25px, 0) scaleX(1.3) scaleY(0.7);
+        clip-path: polygon(10% 22%, 90% 12%, 98% 35%, 2% 38%);
+        filter: blur(2px) brightness(150%) saturate(200%);
+      }
+      6% { 
+        transform: translate(-50%, -50%) translate(35px, 0) scaleX(0.6) scaleY(1.4);
+        clip-path: polygon(5% 38%, 85% 28%, 95% 52%, 0% 58%);
+        filter: blur(3px) hue-rotate(180deg) invert(0.2);
+      }
+      8% { 
+        transform: translate(-50%, -50%) translate(-45px, 0) scaleX(1.5) scaleY(0.5);
+        clip-path: polygon(15% 58%, 80% 45%, 100% 68%, 8% 75%);
+        filter: blur(4px) contrast(300%) grayscale(0.5);
+      }
+      10% { 
+        transform: translate(-50%, -50%) translate(50px, 0) scaleX(0.4) scaleY(1.6);
+        clip-path: polygon(0% 75%, 75% 62%, 90% 85%, 3% 92%);
+        filter: blur(5px) sepia(0.8) brightness(80%);
+      }
+      12% { 
+        transform: translate(-50%, -50%) translate(-38px, 0) scaleX(1.4) scaleY(0.6);
+        clip-path: polygon(12% 92%, 88% 78%, 100% 100%, 0% 100%);
+        filter: blur(4.5px) saturate(300%) hue-rotate(-90deg);
+      }
+      14% { 
+        transform: translate(-50%, -50%) translate(42px, 0) scaleX(0.7) scaleY(1.3);
+        clip-path: polygon(8% 0%, 92% 8%, 85% 28%, 15% 35%);
+        filter: blur(3.5px) contrast(250%) invert(0.3);
+      }
+      16% { 
+        transform: translate(-50%, -50%) translate(-52px, 0) scaleX(1.6) scaleY(0.4);
+        clip-path: polygon(20% 35%, 78% 22%, 95% 48%, 5% 55%);
+        filter: blur(5.5px) brightness(120%) grayscale(0.7);
+      }
+      18% { 
+        transform: translate(-50%, -50%) translate(32px, 0) scaleX(0.9) scaleY(1.2);
+        clip-path: polygon(2% 55%, 88% 42%, 100% 65%, 12% 72%);
+        filter: blur(2.5px) sepia(0.6) saturate(250%);
+      }
+      20% { 
+        transform: translate(-50%, -50%) translate(-28px, 0) scaleX(1.2) scaleY(0.8);
+        clip-path: polygon(18% 72%, 82% 58%, 90% 82%, 10% 88%);
+        filter: blur(3.8px) hue-rotate(90deg) contrast(180%);
+      }
+      22% { 
+        transform: translate(-50%, -50%) translate(48px, 0) scaleX(0.5) scaleY(1.5);
+        clip-path: polygon(5% 88%, 95% 75%, 100% 95%, 0% 100%);
+        filter: blur(6px) invert(0.4) brightness(90%);
+      }
+      24% { 
+        transform: translate(-50%, -50%) translate(-35px, 0) scaleX(1.3) scaleY(0.7);
+        clip-path: polygon(25% 0%, 75% 15%, 80% 35%, 20% 40%);
+        filter: blur(4.2px) saturate(400%) grayscale(0.3);
+      }
+      26% { 
+        transform: translate(-50%, -50%) translate(28px, 0) scaleX(0.85) scaleY(1.15);
+        clip-path: polygon(8% 40%, 92% 28%, 88% 55%, 12% 62%);
+        filter: blur(2.8px) contrast(220%) sepia(0.4);
+      }
+      28% { 
+        transform: translate(-50%, -50%) translate(-40px, 0) scaleX(1.45) scaleY(0.55);
+        clip-path: polygon(15% 62%, 85% 48%, 95% 75%, 5% 82%);
+        filter: blur(5.2px) hue-rotate(-45deg) brightness(110%);
+      }
+      30% { 
+        transform: translate(-50%, -50%) translate(55px, 0) scaleX(0.35) scaleY(1.65);
+        clip-path: polygon(0% 82%, 100% 68%, 85% 92%, 15% 98%);
+        filter: blur(6.5px) invert(0.5) saturate(150%);
+      }
+      32% { 
+        transform: translate(-50%, -50%) translate(-22px, 0) scaleX(1.1) scaleY(0.9);
+        clip-path: polygon(22% 0%, 78% 12%, 88% 32%, 12% 38%);
+        filter: blur(3.2px) contrast(190%) grayscale(0.6);
+      }
+      /* Continue with more erratic frames... */
+      50% { 
+        transform: translate(-50%, -50%) translate(-60px, 0) scaleX(1.7) scaleY(0.3);
+        clip-path: polygon(30% 45%, 70% 35%, 100% 58%, 0% 65%);
+        filter: blur(7px) sepia(1) brightness(70%) saturate(500%);
+      }
+      75% { 
+        transform: translate(-50%, -50%) translate(45px, 0) scaleX(0.2) scaleY(1.8);
+        clip-path: polygon(5% 78%, 95% 68%, 90% 88%, 10% 95%);
+        filter: blur(8px) invert(0.7) hue-rotate(270deg);
+      }
+      90% { 
+        transform: translate(-50%, -50%) translate(-18px, 0) scaleX(1.05) scaleY(0.95);
+        clip-path: polygon(8% 92%, 92% 88%, 88% 100%, 12% 100%);
+        filter: blur(1.5px) contrast(160%) brightness(130%);
+      }
+      100% { 
+        transform: translate(-50%, -50%);
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        filter: none;
+      }
+    }
+
+    @keyframes chaotic-shake {
+      0% { transform: translate(-50%, -50%) translate(0, 0) rotate(0deg); }
+      10% { transform: translate(-50%, -50%) translate(-8px, 3px) rotate(-2deg) scaleX(0.9); }
+      20% { transform: translate(-50%, -50%) translate(12px, -5px) rotate(3deg) scaleY(0.85); }
+      30% { transform: translate(-50%, -50%) translate(-15px, 8px) rotate(-4deg) scaleX(1.15); }
+      40% { transform: translate(-50%, -50%) translate(20px, -12px) rotate(5deg) scaleY(1.2); }
+      50% { transform: translate(-50%, -50%) translate(-25px, 15px) rotate(-6deg) scaleX(0.75); }
+      60% { transform: translate(-50%, -50%) translate(30px, -18px) rotate(7deg) scaleY(0.6); }
+      70% { transform: translate(-50%, -50%) translate(-35px, 22px) rotate(-8deg) scaleX(1.4); }
+      80% { transform: translate(-50%, -50%) translate(40px, -25px) rotate(9deg) scaleY(1.6); }
+      90% { transform: translate(-50%, -50%) translate(-20px, 10px) rotate(-3deg) scaleX(0.8); }
+      100% { transform: translate(-50%, -50%) translate(0, 0) rotate(0deg); }
+    }
+
+    @keyframes text-dissolve {
+      0% { opacity: 1; }
+      5% { opacity: 0.2; }
+      10% { opacity: 0.8; }
+      15% { opacity: 0.1; }
+      20% { opacity: 0.9; }
+      25% { opacity: 0.05; }
+      30% { opacity: 0.7; }
+      35% { opacity: 0.15; }
+      40% { opacity: 0.95; }
+      45% { opacity: 0.02; }
+      50% { opacity: 0.6; }
+      55% { opacity: 0.25; }
+      60% { opacity: 0.85; }
+      65% { opacity: 0.08; }
+      70% { opacity: 0.75; }
+      75% { opacity: 0.12; }
+      80% { opacity: 0.9; }
+      85% { opacity: 0.04; }
+      90% { opacity: 0.65; }
+      95% { opacity: 0.18; }
+      100% { opacity: 1; }
+    }
+
+    /* Ultrasound wave interference */
+    .screen-interference {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: 
+        repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          rgba(255,255,255,0.03) 0.5px,
+          transparent 1px,
+          rgba(255,255,255,0.08) 1.5px,
+          transparent 2px,
+          rgba(255,255,255,0.05) 2.5px,
+          transparent 3px,
+          rgba(255,255,255,0.12) 3.5px,
+          transparent 4px,
+          rgba(255,255,255,0.07) 4.5px,
+          transparent 5px,
+          transparent 8px,
+          rgba(255,255,255,0.15) 8.5px,
+          transparent 9px,
+          transparent 12px
+        );
+      z-index: 1000;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .screen-interference.active {
+      opacity: 1;
+      animation: 
+        ultrasound-waves 0.01s infinite,
+        screen-distort 0.007s infinite;
+    }
+
+    @keyframes screen-distort {
+      0% { filter: contrast(100%) brightness(100%); }
+      10% { filter: contrast(300%) brightness(50%) hue-rotate(180deg); }
+      20% { filter: contrast(50%) brightness(200%) saturate(500%); }
+      30% { filter: contrast(400%) brightness(25%) invert(0.5); }
+      40% { filter: contrast(25%) brightness(300%) sepia(1); }
+      50% { filter: contrast(500%) brightness(10%) grayscale(1); }
+      60% { filter: contrast(10%) brightness(400%) hue-rotate(-90deg); }
+      70% { filter: contrast(350%) brightness(30%) saturate(0); }
+      80% { filter: contrast(75%) brightness(250%) invert(0.8); }
+      90% { filter: contrast(450%) brightness(15%) sepia(0.7); }
+      100% { filter: contrast(100%) brightness(100%); }
+    }
+
+    @keyframes ultrasound-waves {
+      0% { 
+        transform: translateX(0px) translateY(0px) scaleY(1) scaleX(1);
+        background-position: 0px 0px;
+        filter: none;
+      }
+      5% { 
+        transform: translateX(12px) translateY(1px) scaleY(0.92) scaleX(1.05);
+        background-position: 3px 1px;
+        filter: blur(0.3px);
+      }
+      10% { 
+        transform: translateX(-18px) translateY(-1px) scaleY(1.12) scaleX(0.88);
+        background-position: -4px -1px;
+        filter: blur(0.5px) contrast(120%);
+      }
+      15% { 
+        transform: translateX(25px) translateY(2px) scaleY(0.78) scaleX(1.22);
+        background-position: 6px 2px;
+        filter: blur(0.8px) brightness(110%);
+      }
+      20% { 
+        transform: translateX(-32px) translateY(-2px) scaleY(1.35) scaleX(0.65);
+        background-position: -7px -2px;
+        filter: blur(1px) saturate(150%);
+      }
+      25% { 
+        transform: translateX(38px) translateY(3px) scaleY(0.58) scaleX(1.42);
+        background-position: 9px 3px;
+        filter: blur(1.2px) hue-rotate(30deg);
+      }
+      30% { 
+        transform: translateX(-28px) translateY(-3px) scaleY(1.48) scaleX(0.52);
+        background-position: -6px -3px;
+        filter: blur(1.5px) contrast(140%);
+      }
+      35% { 
+        transform: translateX(35px) translateY(2px) scaleY(0.72) scaleX(1.28);
+        background-position: 8px 2px;
+        filter: blur(1px) brightness(90%);
+      }
+      40% { 
+        transform: translateX(-42px) translateY(-1px) scaleY(1.25) scaleX(0.75);
+        background-position: -9px -1px;
+        filter: blur(1.8px) saturate(200%);
+      }
+      45% { 
+        transform: translateX(45px) translateY(4px) scaleY(0.45) scaleX(1.55);
+        background-position: 11px 4px;
+        filter: blur(2px) hue-rotate(-45deg);
+      }
+      50% { 
+        transform: translateX(-50px) translateY(-4px) scaleY(1.68) scaleX(0.32);
+        background-position: -12px -4px;
+        filter: blur(2.5px) contrast(180%);
+      }
+      55% { 
+        transform: translateX(22px) translateY(1px) scaleY(0.88) scaleX(1.12);
+        background-position: 5px 1px;
+        filter: blur(0.8px) brightness(120%);
+      }
+      60% { 
+        transform: translateX(-15px) translateY(-2px) scaleY(1.18) scaleX(0.82);
+        background-position: -3px -2px;
+        filter: blur(1.2px) saturate(180%);
+      }
+      65% { 
+        transform: translateX(30px) translateY(3px) scaleY(0.65) scaleX(1.35);
+        background-position: 7px 3px;
+        filter: blur(1.5px) hue-rotate(60deg);
+      }
+      70% { 
+        transform: translateX(-38px) translateY(-3px) scaleY(1.42) scaleX(0.58);
+        background-position: -8px -3px;
+        filter: blur(2.2px) contrast(160%);
+      }
+      75% { 
+        transform: translateX(48px) translateY(2px) scaleY(0.38) scaleX(1.62);
+        background-position: 12px 2px;
+        filter: blur(3px) brightness(80%);
+      }
+      80% { 
+        transform: translateX(-25px) translateY(-1px) scaleY(1.32) scaleX(0.68);
+        background-position: -6px -1px;
+        filter: blur(1.8px) saturate(250%);
+      }
+      85% { 
+        transform: translateX(20px) translateY(4px) scaleY(0.82) scaleX(1.18);
+        background-position: 4px 4px;
+        filter: blur(1px) hue-rotate(-90deg);
+      }
+      90% { 
+        transform: translateX(-12px) translateY(-2px) scaleY(1.08) scaleX(0.92);
+        background-position: -2px -2px;
+        filter: blur(0.6px) contrast(130%);
+      }
+      95% { 
+        transform: translateX(8px) translateY(1px) scaleY(0.98) scaleX(1.02);
+        background-position: 1px 1px;
+        filter: blur(0.2px) brightness(105%);
+      }
+      100% { 
+        transform: translateX(0px) translateY(0px) scaleY(1) scaleX(1);
+        background-position: 0px 0px;
+        filter: none;
+      }
+    }
+
+    /* Random blackout overlay */
+    .blackout-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .blackout-overlay.active {
+      animation: random-blackouts 0.1s infinite;
+    }
+
+    @keyframes random-blackouts {
+      0% { opacity: 0; }
+      5% { opacity: 1; }
+      8% { opacity: 0; }
+      12% { opacity: 1; }
+      15% { opacity: 0; }
+      25% { opacity: 1; }
+      27% { opacity: 0; }
+      35% { opacity: 1; }
+      38% { opacity: 0; }
+      45% { opacity: 1; }
+      48% { opacity: 0; }
+      55% { opacity: 1; }
+      58% { opacity: 0; }
+      65% { opacity: 1; }
+      67% { opacity: 0; }
+      75% { opacity: 1; }
+      78% { opacity: 0; }
+      85% { opacity: 1; }
+      87% { opacity: 0; }
+      95% { opacity: 1; }
+      97% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .status {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid white;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <div id="screenInterference" class="screen-interference"></div>
+  <div id="blackoutOverlay" class="blackout-overlay"></div>
+
+  <div class="main-container">
+    <div id="hello" class="hello-text">Hola</div>
+    
+    <div id="status" class="status">
+      Move to center zone
+    </div>
+  </div>
+
+  <script>
+    class OrientationDetector {
+      constructor() {
+        this.isVertical = false;
+        this.helloElement = document.getElementById('hello');
+        this.statusElement = document.getElementById('status');
+        
+        this.init();
+      }
+
+      async init() {
+        await this.setupOrientationDetection();
+      }
+
+      async setupOrientationDetection() {
+        // Detect if mobile or desktop
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                        (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
+        
+        if (!isMobile) {
+          this.setupMouseSimulation();
+          return;
+        }
+
+        // Mobile device orientation setup
+        if ('DeviceOrientationEvent' in window) {
+          if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            // iOS 13+ permission request
+            const button = document.createElement('button');
+            button.textContent = 'Enable Sensors';
+            button.style.cssText = `
+              position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+              background: white; color: black; border: none; padding: 1rem 2rem;
+              border-radius: 8px; font-size: 1.1rem; cursor: pointer; z-index: 1000;
+            `;
+            document.body.appendChild(button);
+            
+            button.addEventListener('click', async () => {
+              const permission = await DeviceOrientationEvent.requestPermission();
+              if (permission === 'granted') {
+                button.remove();
+                this.startOrientationDetection();
+              }
+            });
+          } else {
+            this.startOrientationDetection();
+          }
+        }
+      }
+
+      startOrientationDetection() {
+        window.addEventListener('deviceorientation', (event) => {
+          const beta = event.beta;
+          const gamma = event.gamma;
+          
+          const tolerance = 15;
+          const isBetaVertical = beta !== null && Math.abs(beta) < tolerance;
+          const isGammaVertical = gamma !== null && Math.abs(gamma) < tolerance;
+          
+          const wasVertical = this.isVertical;
+          this.isVertical = isBetaVertical && isGammaVertical;
+
+          if (this.isVertical !== wasVertical) {
+            this.updateUI();
+          }
+        });
+        
+        this.statusElement.innerHTML = 'Keep device vertical';
+      }
+
+      setupMouseSimulation() {
+        document.addEventListener('mousemove', (event) => {
+          const mouseX = event.clientX;
+          const mouseY = event.clientY;
+          
+          const centerX = window.innerWidth / 2;
+          const centerY = window.innerHeight / 2;
+          
+          const distanceFromCenter = Math.sqrt(
+            Math.pow(mouseX - centerX, 2) + Math.pow(mouseY - centerY, 2)
+          );
+          
+          const tolerance = 100;
+          const isInCenterZone = distanceFromCenter < tolerance;
+          
+          const wasVertical = this.isVertical;
+          this.isVertical = isInCenterZone;
+
+          if (this.isVertical !== wasVertical) {
+            this.updateUI();
+          }
+        });
+        
+        this.statusElement.innerHTML = 'Move mouse to center';
+      }
+
+      updateUI() {
+        const screenInterference = document.getElementById('screenInterference');
+        const blackoutOverlay = document.getElementById('blackoutOverlay');
+        
+        if (this.isVertical) {
+          // Perfect positioning - everything is clean and calm
+          this.helloElement.classList.remove('glitch');
+          this.statusElement.innerHTML = 'Signal clear';
+          
+          if (screenInterference) {
+            screenInterference.classList.remove('active');
+          }
+          if (blackoutOverlay) {
+            blackoutOverlay.classList.remove('active');
+          }
+        } else {
+          // Incorrect positioning - UNBEARABLE chaos
+          this.helloElement.classList.add('glitch');
+          this.statusElement.innerHTML = 'Signal corrupted';
+          
+          if (screenInterference) {
+            screenInterference.classList.add('active');
+          }
+          if (blackoutOverlay) {
+            blackoutOverlay.classList.add('active');
+          }
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      new OrientationDetector();
+    });
+  </script>
+</body>
 </html>
